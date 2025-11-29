@@ -1,5 +1,5 @@
 import asyncio
-from xC4 import Emote_k, SEndPacKeT
+from xC4 import Emote_k
 import random
 
 # --- SETTINGS ---
@@ -9,6 +9,18 @@ DELAY = 0.15  # Speed (Jitna kam, utna tez)
 # --- STATE VARIABLES ---
 is_running = False
 current_task = None
+
+# --- LOCAL HELPER FUNCTION (Packet bhejne ke liye) ---
+async def SEndPacKeT(whisper_writer, online_writer, TypE, PacKeT):
+    try:
+        if TypE == 'OnLine' and online_writer:
+            online_writer.write(PacKeT)
+            await online_writer.drain()
+        elif TypE == 'ChaT' and whisper_writer:
+            whisper_writer.write(PacKeT)
+            await whisper_writer.drain()
+    except Exception as e:
+        print(f"Packet Send Error: {e}")
 
 # --- 1. EVOLUTION WEAPON EMOTES ---
 EVO_IDS = [
@@ -79,7 +91,6 @@ ALL_IDS = [
 ]
 
 # --- MIXED RANDOM SELECTION ---
-# Combines all unique IDs for random shuffle
 FULL_MIX = list(set(EVO_IDS + ALL_IDS))
 
 async def start_loop(mode, uid, key, iv, region, whisper_writer, online_writer):
@@ -115,7 +126,7 @@ async def start_loop(mode, uid, key, iv, region, whisper_writer, online_writer):
         
         # Loop khatam hone ke baad wapas shuru
         if mode == 'mix':
-            random.shuffle(target_list) # Har baar naya sequence
+            random.shuffle(target_list)
 
 async def handle_vip_command(msg, uid, key, iv, region, whisper_writer, online_writer):
     global is_running, current_task
