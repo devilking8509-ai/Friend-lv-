@@ -4,7 +4,7 @@ import random
 
 # --- SETTINGS ---
 MY_BOSS_UID = "13947421096"  # <--- APNI UID YAHAN DALO
-DELAY = 0.15  # Speed (Jitna kam, utna tez)
+DELAY = 4.15  # Speed (Jitna kam, utna tez)
 
 # --- STATE VARIABLES ---
 is_running = False
