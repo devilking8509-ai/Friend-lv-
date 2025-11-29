@@ -45,4 +45,4 @@ if __name__ == '__main__':
     
     # Flask सर्वर स्टार्ट करें
     print(f"Flask Web Server running on port {PORT}")
-    app.run(host='0.0.0.0', port=PORT
+    app.run(host='0.0.0.0', port=PORT)
