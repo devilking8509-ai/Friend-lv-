@@ -13,7 +13,7 @@ VIP_ADMINS = [
     
     # --- NAYE 50 SLOTS (Yahan paste karein) ---
     "13984459203",
-    "UID_2_YAHAN_DALO",
+    "3310162666",
     "UID_3_YAHAN_DALO",
     "UID_4_YAHAN_DALO",
     "UID_5_YAHAN_DALO",
