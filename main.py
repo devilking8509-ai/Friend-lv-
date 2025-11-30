@@ -846,15 +846,15 @@ async def TcPChaT(ip, port, AutHToKen, key, iv, LoGinDaTaUncRypTinG, ready_event
                                 error_msg = f"[B][C][FF0000]❌ ERROR! Please provide a question after /ai\nExample: /ai What is Free Fire?\n"
                                 await safe_send_message(response.Data.chat_type, error_msg, uid, chat_id, key, iv)
                         # --- VIP FILE CONNECTION ---
-# Yahan humne saare commands add kar diye hain taki main.py unhe roke nahi
-if inPuTMsG.strip() in ['/all', '/evo', '/mix', '/stop']: 
-    # Hum nayi file (vip.py) ko bula rahe hain
-    reply = await vip.handle_vip_command(inPuTMsG.strip(), uid, key, iv, region, whisper_writer, online_writer)
-    
-    # Agar wahan se koi jawab aya, to game mein bhej do
-    if reply:
-        await safe_send_message(response.Data.chat_type, reply, uid, chat_id, key, iv)                                                         
-                                                                       # Likes Command - /likes
+                        if inPuTMsG.strip() in ['/all', '/all_evo', '/stop all']:
+                            # Hum nayi file (vip.py) ko bula rahe hain
+                            reply = await vip.handle_vip_command(inPuTMsG.strip(), uid, key, iv, region, whisper_writer, online_writer)
+                            
+                            # Agar wahan se koi jawab aya, to game mein bhej do
+                            if reply:
+                                await safe_send_message(response.Data.chat_type, reply, uid, chat_id, key, iv)
+                                
+                        # Likes Command - /likes
                         if inPuTMsG.strip().startswith('/likes '):
                             print('Processing likes command in any chat type')
                             
