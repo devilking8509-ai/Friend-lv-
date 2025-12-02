@@ -1728,9 +1728,9 @@ async def StarTinG():
         except asyncio.TimeoutError: print("Token ExpiRed ! , ResTartinG")
         except Exception as e: print(f"ErroR TcP - {e} => ResTarTinG ...")
 
-if # --- AUTO RESTART SYSTEM (Paste at the bottom of main.py) ---
+# --- AUTO RESTART SYSTEM ---
 def auto_restart_timer():
-    # Kitni der baad restart karna hai? (Example: 1800 seconds = 30 Minutes)
+    # Kitni der baad restart karna hai? (Example: 600 seconds = 10 Minutes)
     TIME_TO_RESTART = 600 
     
     print(f"--- Auto-Restart Timer Started: Bot will reset in {TIME_TO_RESTART} seconds ---")
@@ -1738,10 +1738,10 @@ def auto_restart_timer():
     
     print("--- TIME UP! Killing process to refresh connection... ---")
     os._exit(0) # Yeh command bot ko zabardasti band (kill) kar degi
-
+    
 # Timer ko alag thread mein chalu karo
-threading.Thread(target=auto_restart_timer, daemon=True).start()
+threading.Thread(target=auto_restart_timer, daemon=True) start()
 
-# --- ISKE NEECHE PURANA CODE HOGA ---
+# --- MAIN EXECUTION ---
 if __name__ == '__main__':
     asyncio.run(StarTinG())
