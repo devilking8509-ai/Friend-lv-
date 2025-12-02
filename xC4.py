@@ -132,17 +132,45 @@ async def ArA_CoLor():
     return random.choice(Tp)
     
 async def xBunnEr():
-    bN = [902000126 , 902000154 , 902000003 , 902027018 , 902027027 , 902039014 , 902040027 , 902042011 , 902048021 , 902048018 , 902000027 , 902000078 , 902000013 , 902000093 , 902000100 , 902000117 , 902000111 , 902000151 , 902000207 , 902000203 , 902027016 , 902027018 , 902033016 , 902027018 , 902027018 , 902027018 , 902027018 , 902027018 , 902027018]
+    bN = [902048021]
     return random.choice(bN)
 
+async def send_room_chat_enhanced(Msg, room_id, key, iv, region):
+    """Send room chat message using leaked packet structure"""
+    fields = {
+        1: 1,
+        2: {
+            1: 9280892890,  # Sender UID (from leaked packet)
+            2: int(room_id),
+            3: 3,  # Chat type 3 = room chat
+            4: f"[{await ArA_CoLor()}]{Msg}",  # Message with color
+            5: int(datetime.now().timestamp()),  # Current timestamp
+            7: 2,
+            9: {
+                1: "BLACK666FF",  # Your bot name
+                2: int(await xBunnEr()),  # Avatar from your system
+                4: 228,  # Rank/level from leaked packet
+                7: 1,    # Unknown
+            },
+            10: "en",  # Changed from "ar" to "en"
+            13: {2: 1, 3: 1},
+        },
+    }
+    
+    # Generate packet using your existing system
+    packet = (await CrEaTe_ProTo(fields)).hex()
+    
+    # Use 1215 packet type for chat messages (like your existing system)
+    return await GeneRaTePk(packet, '1215', key, iv)
+
 async def xSEndMsg(Msg , Tp , Tp2 , id , K , V):
-    feilds = {1: id , 2: Tp2 , 3: Tp, 4: Msg, 5: 1735129800, 7: 2, 9: {1: "xBesTo - C4", 2: int(await xBunnEr()), 3: 901048018, 4: 330, 5: 909034009, 8: "xBesTo - C4", 10: 1, 11: 1, 13: {1: 2}, 14: {1: 12484827014, 2: 8, 3: "\u0010\u0015\b\n\u000b\u0013\f\u000f\u0011\u0004\u0007\u0002\u0003\r\u000e\u0012\u0001\u0005\u0006"}, 12: 0}, 10: "en", 13: {3: 1}}
+    feilds = {1: id , 2: Tp2 , 3: Tp, 4: Msg, 5: 1735129800, 7: 2, 9: {1: "xBesTo - C4", 2: int(await xBunnEr()), 3: 901048020, 4: 330, 5: 1001000001, 8: "xBesTo - C4", 10: 1, 11: 1, 13: {1: 2}, 14: {1: 12484827014, 2: 8, 3: "\u0010\u0015\b\n\u000b\u0013\f\u000f\u0011\u0004\u0007\u0002\u0003\r\u000e\u0012\u0001\u0005\u0006"}, 12: 0}, 10: "en", 13: {3: 1}}
     Pk = (await CrEaTe_ProTo(feilds)).hex()
     Pk = "080112" + await EnC_Uid(len(Pk) // 2, Tp='Uid') + Pk
     return await GeneRaTePk(Pk, '1201', K, V)
     
 async def xSEndMsgsQ(Msg , id , K , V):
-    fields = {1: id , 2: id , 4: Msg , 5: 1756580149, 7: 2, 8: 904990072, 9: {1: "xBe4!sTo - C4", 2: await xBunnEr(), 4: 330, 5: 827001005, 8: "xBe4!sTo - C4", 10: 1, 11: 1, 13: {1: 2}, 14: {1: 1158053040, 2: 8, 3: "\u0010\u0015\b\n\u000b\u0015\f\u000f\u0011\u0004\u0007\u0002\u0003\r\u000e\u0012\u0001\u0005\u0006"}}, 10: "en", 13: {2: 2, 3: 1}}
+    fields = {1: id , 2: id , 4: Msg , 5: 1756580149, 7: 2, 8: 904990072, 9: {1: "xBe4!sTo - C4", 2: await xBunnEr(), 4: 330, 5: 1001000001, 8: "xBe4!sTo - C4", 10: 1, 11: 1, 13: {1: 2}, 14: {1: 1158053040, 2: 8, 3: "\u0010\u0015\b\n\u000b\u0015\f\u000f\u0011\u0004\u0007\u0002\u0003\r\u000e\u0012\u0001\u0005\u0006"}}, 10: "en", 13: {2: 2, 3: 1}}
     Pk = (await CrEaTe_ProTo(fields)).hex()
     Pk = "080112" + await EnC_Uid(len(Pk) // 2, Tp='Uid') + Pk
     return await GeneRaTePk(Pk, '1201', K, V)     
@@ -349,6 +377,7 @@ async def cHSq(Nu , Uid , K , V,region):
 
 
 
+
 async def SEnd_InV(Nu , Uid , K , V,region):
     
     fields = {1: 2 , 2: {1: int(Uid) , 2: region , 4: int(Nu)}}
@@ -360,7 +389,6 @@ async def SEnd_InV(Nu , Uid , K , V,region):
     else:
         packet = "0515"
     return await GeneRaTePk((await CrEaTe_ProTo(fields)).hex() , packet , K , V)
-
     
 async def ExiT(idT , K , V):
     fields = {
