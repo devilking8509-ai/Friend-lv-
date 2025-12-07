@@ -1045,32 +1045,50 @@ def get_player_info(player_id):
         return {
             "error": f"Failed to fetch data: {response.status_code}"
         }
-#CHAT WITH AI (Updated)
+## CHAT WITH AI (Gemini 1.5 Pro - 100% Secure for GitHub)
 def talk_with_ai(question):
-    # Apna Google Gemini API Key niche double quotes ke andar dalein
-    api_key = "AIzaSyAW9_pS7JMrnf_Nvx-IqnRPdDyITLciQqc" 
+    # Ab ye line sirf Server (Render) ke environment se key dhoondegi.
+    # Is code file ke andar koi key nahi hai, isliye GitHub par ye safe hai.
+    api_key = os.environ.get("GEMINI_API_KEY")
     
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
+    # Agar Render par key set karna bhool gaye, to ye error aayega
+    if not api_key:
+        return "System Error: API Key not found. Please set GEMINI_API_KEY in Render Environment Variables."
+
+    # Google Gemini 1.5 Pro Model URL
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key={api_key}"
+    
     headers = {
         'Content-Type': 'application/json'
     }
+    
+    # Advanced settings for better AI responses
     payload = {
         "contents": [{
             "parts": [{"text": question}]
-        }]
+        }],
+        "generationConfig": {
+            "temperature": 0.9,
+            "topK": 40,
+            "topP": 0.95,
+            "maxOutputTokens": 1024,
+        }
     }
     
     try:
-        # Note: Google API POST request leta hai, GET nahi
+        # Request bhej rahay hain
         res = requests.post(url, headers=headers, json=payload)
         
         if res.status_code == 200:
             data = res.json()
-            # Google API ka response structure alag hota hai
-            msg = data["candidates"][0]["content"]["parts"][0]["text"]
-            return msg
+            if "candidates" in data and len(data["candidates"]) > 0:
+                msg = data["candidates"][0]["content"]["parts"][0]["text"]
+                return msg
+            else:
+                return "AI response khali aaya."
         else:
-            return f"API Error: {res.status_code} - Check API Key"
+            return f"Server Error: {res.status_code}"
+            
     except Exception as e:
         return f"Connection Error: {str(e)}"
 #SPAM REQUESTS
